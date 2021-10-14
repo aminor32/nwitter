@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, getDocs } from "firebase/firestore"
 
 const Home = () => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
     const getNweets = async() => {
-        const dbNweets = await dbService.collection("nweets").get()
+        const dbNweets = await getDocs(collection(dbService, "nweets"));
         dbNweets.forEach((document) => {
             const nweetObject = {
                 ...document.data(),
