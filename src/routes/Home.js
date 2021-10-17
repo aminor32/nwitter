@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 const Home = ({ userObj }) => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
     useEffect( () => {
         onSnapshot (
         query(collection(dbService, "nweets"), orderBy("createdAt", "desc")),
@@ -25,7 +25,7 @@ const Home = ({ userObj }) => {
         let attachmentUrl ="";
         if(attachment !== "") {
             const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
-            /*const response =*/ await uploadString(fileRef, attachment, "data_url");
+            await uploadString(fileRef, attachment, "data_url");
             attachmentUrl = await getDownloadURL(fileRef);
         }
         const nweetObj = {
@@ -60,7 +60,7 @@ const Home = ({ userObj }) => {
             reader.readAsDataURL(theFile);
         }
     };
-    const onClearAttachment = () => setAttachment(null);
+    const onClearAttachment = () => setAttachment("");
     return (
         <div>
             <form onSubmit={onSubmit}>
