@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { authService, dbService } from "fbase";
+import React, { useState } from "react";
+import { authService } from "fbase";
 import { useHistory } from "react-router";
-import { updateProfile } from "firebase/auth";
-// import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 
 export default ({ refreshUser, userObj }) => {
     const hisory = useHistory();
@@ -26,16 +24,6 @@ export default ({ refreshUser, userObj }) => {
         }
         refreshUser();
     };
-    /* const getMyNweets = async() => {
-        const nweets = await getDocs(query(
-            collection(dbService, "nweets"), 
-            where("creatorId", "==", userObj.uid), 
-            orderBy("createdAt", "desc")
-        )); // 맞는지 확실 X
-    }
-    useEffect(() => {
-        getMyNweets();
-    }) */
     return (
         <>
         <form onSubmit={onSubmit}>

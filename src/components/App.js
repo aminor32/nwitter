@@ -13,7 +13,7 @@ function App() {
           displayName:user.displayName,
           uid:user.uid,
           updateProfile: (args) => updateProfile(user, args),
-      });
+        });
       } else {
         setUserObj(null);
       }
