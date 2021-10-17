@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { updateProfile } from "firebase/auth";
 // import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 
-export default ({ userObj }) => {
+export default ({ refreshUser, userObj }) => {
     const hisory = useHistory();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
@@ -19,12 +19,13 @@ export default ({ userObj }) => {
     };
     const onSubmit = async (event) => {
         event.preventDefault();
-        if(userObj.displayName !== "newDisplayName") {
-            await updateProfile(userObj, {
-                displayName: newDisplayName,
-            })
+        if (userObj.displayName !== newDisplayName) {
+            await userObj.updateProfile({
+                displayName:newDisplayName,
+            });
         }
-    }
+        refreshUser();
+    };
     /* const getMyNweets = async() => {
         const nweets = await getDocs(query(
             collection(dbService, "nweets"), 
